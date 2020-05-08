@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://ghewadesumit:ghewadesumit@cluster0-79tc7.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtToken": "mysecrettoken"
+  "jwtToken": "mysecrettoken",
+  "githubClientId": "da932d32b220e5d00e9b",
+  "githubSecret": "99bebe66727b198488bae66cdef670334f3fcf86"
 }
