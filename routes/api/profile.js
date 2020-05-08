@@ -213,7 +213,6 @@ router.put(
 // @desc   DELETE the profile experience
 // @access Private
 router.delete('/experience/:exp_id', auth, async (req, res) => {
-  console.log('reached here');
   try {
     const profile = await Profile.findOne({ user: req.user.id });
     const newExp = profile.experience.filter(
@@ -229,21 +228,34 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 });
 
 // @route  PUT api/profile/experience/:exp_id
-// @desc   DELETE the profile experience
+// @desc   UPDATE the profile experience
 // @access Private
-router.delete('/experience/:exp_id', auth, async (req, res) => {
-  console.log('reached here');
+router.put('/experience/:exp_id', auth, async (req, res) => {
+  const { title, company, from, location, to, current, description } = req.body;
+
   try {
     const profile = await Profile.findOne({ user: req.user.id });
-    const newExp = profile.experience.filter(
-      (item) => item._id.toString() !== req.params.exp_id.toString()
+    const newExp = profile.experience.find(
+      (item) => item._id.toString() == req.params.exp_id.toString()
     );
-    profile.experience = [...newExp];
+    if (!newExp) {
+      res.status(400).json({ msg: `Please provide valid id` });
+    }
+    if (title) newExp.title = title;
+    if (company) newExp.company = company;
+    if (from) newExp.from = from;
+    if (location) newExp.location = location;
+    if (to) newExp.to = to;
+    if (current) newExp.current = current;
+    if (description) newExp.description = description;
+
+    // console.log(profile.experience);
     await profile.save();
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error, deleting the experience');
+    res.status(500).send('Server Error, updating the experience');
   }
 });
+
 module.exports = router;
