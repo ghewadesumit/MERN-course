@@ -109,6 +109,10 @@ router.post(
 // @access Public
 router.get('/user/:user_id', async (req, res) => {
   try {
+    const isValidObject = mongoose.Types.ObjectId.isValid(req.params.user_id);
+    if (!isValidObject)
+      return res.status(404).json({ msg: 'The Post id is wrong' });
+
     const profile = await Profile.findOne({
       user: req.params.user_id,
     }).populate('user', ['name', 'avatar']);
@@ -120,9 +124,6 @@ router.get('/user/:user_id', async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.log(err.message);
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Profile not found' });
-    }
     res.status(500).send('Server Error');
   }
 });
