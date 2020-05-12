@@ -70,3 +70,8 @@ export const login = (email, password) => async (dispatch) => {
     // console.error(err.message);
   }
 };
+
+// Logout
+export const logout = () => (dispatch) => {
+  dispatch({ type: actionTypes.LOGOUT });
+};

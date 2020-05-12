@@ -21,11 +21,16 @@ export default function (state = initialState, actions) {
       return { ...state, ...payload, isAuthenticated: false, loading: false };
 
     case actionTypes.REGISTER_FAIL:
-      return { ...state, isRegistered: false };
-    case actionTypes.AUTH_ERROR:
     case actionTypes.LOGIN_FAIL:
+    case actionTypes.LOGOUT:
       localStorage.removeItem('token');
-      return { ...state, token: null, isAuthenticated: false, loading: false };
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        isRegistered: false,
+      };
 
     default:
       return state;
