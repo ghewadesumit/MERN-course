@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { setAlert } from '../../store/actions/alert';
+import { register } from '../../store/actions/auth';
+import PropTypes from 'prop-types';
 
-const Register = () => {
+const Register = ({ setAlert, register, isRegistered }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,11 +19,18 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) console.log('Doesnt match password');
-    else {
-      console.log('success');
+
+    if (password !== confirmPassword) {
+      setAlert('Password do not match', 'danger');
+    } else {
+      register({ name, email, password });
     }
   };
+
+  if (isRegistered) {
+    return <Redirect to='/login' />;
+  }
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Sign Up</h1>
@@ -39,7 +49,6 @@ const Register = () => {
             name='name'
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -49,7 +58,6 @@ const Register = () => {
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
-            required
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -85,4 +93,13 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+  isRegistered: state.auth.isRegistered,
+});
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isRegistered: PropTypes.bool,
+};
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

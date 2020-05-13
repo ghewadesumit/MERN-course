@@ -20,7 +20,7 @@ router.get('/', auth, async (req, res) => {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-  return res.send('Auth Route');
+  // return res.send('Auth Route');
 });
 
 // @route  POST api/auth
