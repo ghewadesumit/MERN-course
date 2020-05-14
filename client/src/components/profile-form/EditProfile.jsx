@@ -2,28 +2,35 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Spinner from '../profile-form/CreateProfile';
 import { createProfile } from '../../store/actions/profile';
 
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({
+	profile: { profile, loading },
+	createProfile,
+	history,
+}) => {
 	const [formData, setFormData] = useState({
-		company: '',
-		website: '',
-		location: '',
-		status: '',
-		skills: '',
-		githubusername: '',
-		bio: '',
-		twitter: '',
-		facebook: '',
-		linkedin: '',
-		youtube: '',
-		instagram: '',
+		company: loading || !profile.company ? '' : profile.company,
+		website: loading || !profile.website ? '' : profile.website,
+		location: loading || !profile.location ? '' : profile.location,
+		status: loading || !profile.status ? '' : profile.status,
+		skills: loading || !profile.skills ? '' : profile.skills.join(','),
+		githubusername:
+			loading || !profile.githubusername ? '' : profile.githubusername,
+		bio: loading || !profile.bio ? '' : profile.bio,
+		twitter: loading || !profile.twitter ? '' : profile.twitter,
+		facebook: loading || !profile.facebook ? '' : profile.facebook,
+		linkedin: loading || !profile.linkedin ? '' : profile.linkedin,
+		youtube: loading || !profile.youtube ? '' : profile.youtube,
+		instagram: loading || !profile.instagram ? '' : profile.instagram,
 	});
 
 	const {
 		company,
 		website,
 		location,
+		status,
 		skills,
 		githubusername,
 		bio,
@@ -41,9 +48,10 @@ const CreateProfile = ({ createProfile, history }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		createProfile(formData, history);
+		createProfile(formData, history, true);
 	};
-	return (
+
+	return profile ? (
 		<Fragment>
 			<h1 className='large text-primary'>Create Your Profile</h1>
 			<p className='lead'>
@@ -53,7 +61,11 @@ const CreateProfile = ({ createProfile, history }) => {
 			<small>* = required field</small>
 			<form onSubmit={(e) => onSubmit(e)} className='form'>
 				<div className='form-group'>
-					<select name='statue' onChange={(e) => onChange(e)}>
+					<select
+						name='status'
+						defaultValue={status}
+						onChange={(e) => onChange(e)}
+					>
 						<option value='0'>* Select Professional Status</option>
 						<option value='Developer'>Developer</option>
 						<option value='Junior Developer'>Junior Developer</option>
@@ -215,11 +227,20 @@ const CreateProfile = ({ createProfile, history }) => {
 				</Link>
 			</form>
 		</Fragment>
+	) : (
+		<Spinner />
 	);
 };
 
-CreateProfile.propTypes = {
+const mapStatToProps = (state) => ({
+	profile: state.profile,
+});
+
+EditProfile.propTypes = {
 	createProfile: PropTypes.func.isRequired,
+	profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default connect(mapStatToProps, { createProfile })(
+	withRouter(EditProfile)
+);

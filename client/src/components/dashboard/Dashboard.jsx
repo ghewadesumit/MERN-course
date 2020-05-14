@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getCurrentProfile } from '../../store/actions/profile';
 import Spinner from '../layout/Spinner';
+import DashboardAction from './DashboardAction';
 
 const Dashboard = ({
 	profile: { profile, loading },
@@ -23,7 +24,9 @@ const Dashboard = ({
 				<i className='fas fa-user'></i> Welcome {user && user.name}
 			</p>
 			{profile !== null ? (
-				<Fragment>has</Fragment>
+				<Fragment>
+					<DashboardAction />
+				</Fragment>
 			) : (
 				<Fragment>
 					<p>
