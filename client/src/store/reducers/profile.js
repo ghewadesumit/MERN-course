@@ -12,6 +12,8 @@ export default function (state = initialState, action) {
 	const { type, payload } = action;
 
 	switch (type) {
+		case actionTypes.DELETE_EXPERIENCE:
+		case actionTypes.DELETE_EDUCATION:
 		case actionTypes.UPDATE_PROFILE:
 		case actionTypes.CREATE_PROFILE_SUCCESS:
 		case actionTypes.GET_PROFILE:

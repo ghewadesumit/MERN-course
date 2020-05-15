@@ -224,6 +224,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 			(item) => item._id.toString() !== req.params.exp_id.toString()
 		);
 		profile.experience = [...newExp];
+		console.log(profile.experience);
 		await profile.save();
 		res.json(profile);
 	} catch (err) {

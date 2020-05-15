@@ -70,7 +70,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
 	}
 };
 
-//Add Education
+// Add Education
 export const addEducation = (formData, history) => async (dispatch) => {
 	try {
 		// Stating the data type to be sent
@@ -95,6 +95,28 @@ export const addEducation = (formData, history) => async (dispatch) => {
 			type: actionTypes.PROFILE_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
+	}
+};
+
+// Delete Experience
+export const deleteExperience = (expId) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/api/profile/experience/${expId}`);
+		dispatch({ type: actionTypes.DELETE_EXPERIENCE, payload: res.data });
+		dispatch(setAlert('Experience Deleted', 'success'));
+	} catch (err) {
+		dispatch(setAlert('Experience not deleted ', 'danger'));
+	}
+};
+
+// Delete Education
+export const deleteEducation = (eduId) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/api/profile/education/${eduId}`);
+		dispatch({ type: actionTypes.DELETE_EDUCATION, payload: res.data });
+		dispatch(setAlert('Education Deleted', 'success'));
+	} catch (err) {
+		dispatch(setAlert('Education not deleted ', 'danger'));
 	}
 };
 
