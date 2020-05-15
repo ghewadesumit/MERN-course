@@ -10,7 +10,7 @@ import Education from './Education';
 import DashboardAction from './DashboardAction';
 
 const Dashboard = ({
-	profile: { profile, loading },
+	profile: { profile, loading, isModal },
 	auth: { user },
 	getCurrentProfile,
 	deleteProfile,
@@ -33,13 +33,14 @@ const Dashboard = ({
 					<DashboardAction />
 					<Experience experience={profile.experience} />
 					<Education education={profile.education} />
-
-					<button
-						onClick={() => deleteProfile(history)}
-						className='btn btn-danger'
-					>
-						Delete Profile
-					</button>
+					<div className='my-2'>
+						<button
+							onClick={() => deleteProfile(history)}
+							className='btn btn-danger'
+						>
+							<i className='fas fa-user-minus'>Delete My Account</i>
+						</button>
+					</div>
 				</Fragment>
 			) : (
 				<Fragment>

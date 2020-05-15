@@ -101,11 +101,18 @@ export const addEducation = (formData, history) => async (dispatch) => {
 // Delete Profile
 export const deleteProfile = (history) => async (dispatch) => {
 	try {
-		await axios.delete(`/api/profile`);
+		if (
+			window.confirm('Are you Sure? Your account would be permanently lost')
+		) {
+			await axios.delete(`/api/profile`);
 
-		dispatch({ type: actionTypes.DELETE_PROFILE });
-		history.push('/login');
-		dispatch(setAlert('Profile Deleted', 'success'));
+			dispatch({ type: actionTypes.CLEAR_PROFILE });
+			dispatch({ type: actionTypes.ACCOUNT_DELETED });
+			history.push('/login');
+			dispatch(
+				setAlert('Your account has been deleted permanently', 'success')
+			);
+		}
 	} catch (err) {
 		dispatch(setAlert('Profile deletion error', 'danger'));
 	}

@@ -6,6 +6,7 @@ const initialState = {
 	repos: [],
 	loading: true,
 	error: {},
+	isModal: false,
 };
 
 export default function (state = initialState, action) {
