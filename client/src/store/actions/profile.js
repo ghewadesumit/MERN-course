@@ -98,10 +98,24 @@ export const addEducation = (formData, history) => async (dispatch) => {
 	}
 };
 
+// Delete Profile
+export const deleteProfile = (history) => async (dispatch) => {
+	try {
+		await axios.delete(`/api/profile`);
+
+		dispatch({ type: actionTypes.DELETE_PROFILE });
+		history.push('/login');
+		dispatch(setAlert('Profile Deleted', 'success'));
+	} catch (err) {
+		dispatch(setAlert('Profile deletion error', 'danger'));
+	}
+};
+
 // Delete Experience
 export const deleteExperience = (expId) => async (dispatch) => {
 	try {
 		const res = await axios.delete(`/api/profile/experience/${expId}`);
+
 		dispatch({ type: actionTypes.DELETE_EXPERIENCE, payload: res.data });
 		dispatch(setAlert('Experience Deleted', 'success'));
 	} catch (err) {
@@ -113,6 +127,7 @@ export const deleteExperience = (expId) => async (dispatch) => {
 export const deleteEducation = (eduId) => async (dispatch) => {
 	try {
 		const res = await axios.delete(`/api/profile/education/${eduId}`);
+
 		dispatch({ type: actionTypes.DELETE_EDUCATION, payload: res.data });
 		dispatch(setAlert('Education Deleted', 'success'));
 	} catch (err) {

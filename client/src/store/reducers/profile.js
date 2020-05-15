@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
 			return { ...state, error: payload, loading: false };
 
 		case actionTypes.CLEAR_PROFILE:
+		case actionTypes.DELETE_PROFILE:
 			return {
 				...state,
 				profile: null,
