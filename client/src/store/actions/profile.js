@@ -15,6 +15,46 @@ export const getCurrentProfile = () => async (dispatch) => {
 	}
 };
 
+//Get current all user profile
+export const getProfiles = () => async (dispatch) => {
+	try {
+		const res = await axios.get('/api/profile');
+		dispatch({ type: actionTypes.GET_PROFILES, payload: res.data });
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+//Get current user github repo
+export const getGithubRepos = (githubUserName) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/profile/github/${githubUserName}`);
+		dispatch({ type: actionTypes.GET_REPOS, payload: res.data });
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+//Get current user profile by id
+export const getProfilesById = (userId) => async (dispatch) => {
+	dispatch({ type: actionTypes.CLEAR_PROFILE });
+	try {
+		const res = await axios.get(`/api/profile/${userId}`);
+		dispatch({ type: actionTypes.GET_PROFILES, payload: res.data });
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
 // Post logined user Profile
 export const createProfile = (formData, history, edit = false) => async (
 	dispatch

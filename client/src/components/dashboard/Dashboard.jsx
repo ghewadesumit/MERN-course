@@ -10,7 +10,7 @@ import Education from './Education';
 import DashboardAction from './DashboardAction';
 
 const Dashboard = ({
-	profile: { profile, loading, isModal },
+	profile: { profile, loading },
 	auth: { user },
 	getCurrentProfile,
 	deleteProfile,
