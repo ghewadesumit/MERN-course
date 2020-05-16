@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
 
 		case actionTypes.CREATE_PROFILE_FAIL:
 		case actionTypes.PROFILE_ERROR:
-			return { ...state, error: payload, loading: false };
+			return { ...state, error: payload, profile: null, loading: false };
 
 		case actionTypes.CLEAR_PROFILE:
 		case actionTypes.DELETE_PROFILE:

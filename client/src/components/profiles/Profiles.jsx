@@ -17,10 +17,10 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 				<Fragment>
 					<h1 className='large text-primary'>Developers</h1>
 					<p className='lead'>
-						<i class='fab fa-connectdevelop'></i> Browse and connect with
+						<i className='fab fa-connectdevelop'></i> Browse and connect with
 						Developers
 					</p>
-					<div class='profiles'>
+					<div className='profiles'>
 						{profiles.length > 0 ? (
 							profiles.map((profile) => (
 								<ProfileItem key={profile._id} profile={profile} />
