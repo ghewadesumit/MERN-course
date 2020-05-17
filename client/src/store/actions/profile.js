@@ -36,7 +36,7 @@ export const getGithubRepos = (githubUserName) => async (dispatch) => {
 		dispatch({ type: actionTypes.GET_REPOS, payload: res.data });
 	} catch (err) {
 		dispatch({
-			type: actionTypes.PROFILE_ERROR,
+			type: actionTypes.REPOS_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
 	}
