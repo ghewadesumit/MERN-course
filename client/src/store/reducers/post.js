@@ -9,8 +9,15 @@ const inititalState = {
 export default function (state = inititalState, action) {
 	const { type, payload } = action;
 	switch (type) {
+		case actionTypes.GET_POST:
+			return { ...state, post: payload, loading: false };
+
 		case actionTypes.GET_POSTS:
 			return { ...state, posts: payload, loading: false };
+
+		case actionTypes.ADD_POST:
+			return { ...state, posts: [payload, ...state.posts], loading: false };
+
 		case actionTypes.UPDATE_LIKES:
 			return {
 				...state,
@@ -21,10 +28,10 @@ export default function (state = inititalState, action) {
 				),
 				loading: false,
 			};
+
 		case actionTypes.POST_ERROR:
 			return { ...state, error: payload, loading: false };
-		case actionTypes.ADD_POST:
-			return { ...state, posts: [payload, ...state.posts], loading: false };
+
 		case actionTypes.DELETE_POST:
 			return {
 				...state,

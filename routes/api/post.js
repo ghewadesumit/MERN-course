@@ -22,7 +22,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route  GET api/post/my-post
-// @desc   Getting a post by user Id
+// @desc   Getting all post by a user by his loggedin id
 // @access public
 router.get('/my-post', auth, async (req, res) => {
 	try {
@@ -42,9 +42,10 @@ router.get('/my-post', auth, async (req, res) => {
 // @access public
 router.get('/:id', auth, async (req, res) => {
 	try {
-		const isValidObject = mongoose.Types.ObjectId.isValid(req.params.id);
-		if (!isValidObject)
-			return res.status(404).json({ msg: 'The Post id is wrong' });
+		console.log('called the post by id');
+		// const isValidObject = mongoose.Types.ObjectId.isValid(req.params.id);
+		// if (!isValidObject)
+		// 	return res.status(404).json({ msg: 'The Post id is wrong' });
 
 		const post = await Post.findById(req.params.id);
 		if (!post)
