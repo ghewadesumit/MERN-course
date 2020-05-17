@@ -16,16 +16,16 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 		<Spinner />
 	) : (
 		<Fragment>
-			<h1 class='large text-primary'>Posts</h1>
-			<p class='lead'>
-				<i class='fas fa-user'></i> Welcome to the community!
+			<h1 className='large text-primary'>Posts</h1>
+			<p className='lead'>
+				<i className='fas fa-user'></i> Welcome to the community!
 			</p>
 
-			<div class='post-form'>
-				<div class='bg-primary p'>
+			<div className='post-form'>
+				<div className='bg-primary p'>
 					<h3>Say Something...</h3>
 				</div>
-				<form class='form my-1'>
+				<form className='form my-1'>
 					<textarea
 						name='text'
 						cols='30'
@@ -33,10 +33,10 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 						placeholder='Create a post'
 						required
 					></textarea>
-					<input type='submit' class='btn btn-dark my-1' value='Submit' />
+					<input type='submit' className='btn btn-dark my-1' value='Submit' />
 				</form>
 			</div>
-			<div class='posts'>
+			<div className='posts'>
 				{posts.map((post) => (
 					<PostItems key={post._id} post={post} />
 				))}

@@ -11,6 +11,16 @@ export default function (state = inititalState, action) {
 	switch (type) {
 		case actionTypes.GET_POSTS:
 			return { ...state, posts: payload, loading: false };
+		case actionTypes.UPDATE_LIKES:
+			return {
+				...state,
+				posts: state.posts.map((post) =>
+					post._id === payload.postId
+						? { ...post, likes: payload.response }
+						: post
+				),
+				loading: false,
+			};
 		case actionTypes.POST_ERROR:
 			return { ...state, error: payload, loading: false };
 		default:
