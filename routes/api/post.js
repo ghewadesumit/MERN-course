@@ -111,39 +111,39 @@ router.post(
 	}
 );
 
-// // @route  POST api/post
-// // @desc   Posting a post
-// // @access Private
-// router.post(
-//   '/',
-//   [auth, check('text', 'Text is required').not().isEmpty()],
-//   async (req, res, next) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ errors: error.away() });
-//     }
-//     try {
-//       const isValidObject = mongoose.Types.ObjectId.isValid(req.user.id);
+// @route  POST api/post
+// @desc   Posting a post
+// @access Private
+router.post(
+	'/',
+	[auth, check('text', 'Text is required').not().isEmpty()],
+	async (req, res, next) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: error.away() });
+		}
+		try {
+			const isValidObject = mongoose.Types.ObjectId.isValid(req.user.id);
 
-//       if (!isValidObject)
-//         return res.status(404).json({ msg: 'The Post id is wrong' });
+			if (!isValidObject)
+				return res.status(404).json({ msg: 'The Post id is wrong' });
 
-//       const user = await User.findById(req.user.id).select('-password');
-//       let newPost = {
-//         text: req.body.text,
-//         name: user.name,
-//         avatar: user.avatar,
-//         user: req.user.id,
-//       };
-//       newPost = new Post(newPost);
-//       await newPost.save();
-//       res.json(newPost);
-//     } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send('Server error for posting post');
-//     }
-//   }
-// );
+			const user = await User.findById(req.user.id).select('-password');
+			let newPost = {
+				text: req.body.text,
+				name: user.name,
+				avatar: user.avatar,
+				user: req.user.id,
+			};
+			newPost = new Post(newPost);
+			await newPost.save();
+			res.json(newPost);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).send('Server error for posting post');
+		}
+	}
+);
 
 // @route  PUT api/post/like/:id
 // @desc   Like a post

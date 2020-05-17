@@ -23,6 +23,11 @@ export default function (state = inititalState, action) {
 			};
 		case actionTypes.POST_ERROR:
 			return { ...state, error: payload, loading: false };
+		case actionTypes.DELETE_POST:
+			return {
+				...state,
+				posts: state.posts.filter((post) => post._id !== payload),
+			};
 		default:
 			return state;
 	}

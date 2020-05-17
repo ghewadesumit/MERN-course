@@ -34,12 +34,28 @@ export const addLike = (postId) => async (dispatch) => {
 // Remove Like
 export const removeLike = (postId) => async (dispatch) => {
 	try {
-		console.log(postId);
 		const res = await axios.put(`api/post/unlike/${postId}`);
 		dispatch({
 			type: actionTypes.UPDATE_LIKES,
 			payload: { response: res.data, postId },
 		});
+	} catch (err) {
+		dispatch({
+			type: actionTypes.POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// Delete Like
+export const deletePost = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`api/post/${id}`);
+		dispatch({
+			type: actionTypes.DELETE_POST,
+			payload: id,
+		});
+		dispatch(setAlert('Post Removed', 'success'));
 	} catch (err) {
 		dispatch({
 			type: actionTypes.POST_ERROR,
