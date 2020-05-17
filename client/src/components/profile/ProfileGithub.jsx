@@ -14,7 +14,7 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 
 			{repos == null ? (
 				<Spinner />
-			) : (
+			) : repos.length > 0 ? (
 				repos.map((repo, index) => (
 					<div key={repo.id} className='rep bg-white p-1 my-1'>
 						<div>
@@ -42,6 +42,12 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 						</div> */}
 					</div>
 				))
+			) : (
+				<h4>
+					{' '}
+					Either you have entered a wrong Github username or there are no
+					Repositories
+				</h4>
 			)}
 		</div>
 	);

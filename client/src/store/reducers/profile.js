@@ -34,6 +34,8 @@ export default function (state = initialState, action) {
 		case actionTypes.PROFILE_ERROR:
 			return { ...state, error: payload, profile: null, loading: false };
 
+		case actionTypes.REPOS_ERROR:
+			return { ...state, error: payload, repos: [] };
 		case actionTypes.CLEAR_PROFILE:
 		case actionTypes.DELETE_PROFILE:
 			return {

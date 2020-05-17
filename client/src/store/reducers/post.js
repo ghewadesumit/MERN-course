@@ -23,6 +23,8 @@ export default function (state = inititalState, action) {
 			};
 		case actionTypes.POST_ERROR:
 			return { ...state, error: payload, loading: false };
+		case actionTypes.ADD_POST:
+			return { ...state, posts: [payload, ...state.posts], loading: false };
 		case actionTypes.DELETE_POST:
 			return {
 				...state,

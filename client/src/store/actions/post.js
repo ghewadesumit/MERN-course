@@ -55,8 +55,29 @@ export const deletePost = (id) => async (dispatch) => {
 			type: actionTypes.DELETE_POST,
 			payload: id,
 		});
-		dispatch(setAlert('Post Removed', 'success'));
+		dispatch(setAlert('Post Deleted', 'danger'));
 	} catch (err) {
+		dispatch({
+			type: actionTypes.POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// Add a post Like
+export const addPost = (formData) => async (dispatch) => {
+	try {
+		console.log('im getting called', formData);
+		const config = { headers: { 'Content-Type': 'application/json' } };
+		const body = JSON.stringify(formData);
+		const res = await axios.post(`api/post`, body, config);
+		dispatch({
+			type: actionTypes.ADD_POST,
+			payload: res.data,
+		});
+		dispatch(setAlert('Post Added', 'success'));
+	} catch (err) {
+		console.log(err);
 		dispatch({
 			type: actionTypes.POST_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
