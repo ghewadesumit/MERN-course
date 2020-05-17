@@ -14,7 +14,6 @@ const PostForm = ({ addPost }) => {
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						console.log(text);
 						addPost({ text });
 						setText('');
 					}}

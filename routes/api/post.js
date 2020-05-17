@@ -42,10 +42,9 @@ router.get('/my-post', auth, async (req, res) => {
 // @access public
 router.get('/:id', auth, async (req, res) => {
 	try {
-		console.log('called the post by id');
-		// const isValidObject = mongoose.Types.ObjectId.isValid(req.params.id);
-		// if (!isValidObject)
-		// 	return res.status(404).json({ msg: 'The Post id is wrong' });
+		const isValidObject = mongoose.Types.ObjectId.isValid(req.params.id);
+		if (!isValidObject)
+			return res.status(404).json({ msg: 'The Post id is wrong' });
 
 		const post = await Post.findById(req.params.id);
 		if (!post)

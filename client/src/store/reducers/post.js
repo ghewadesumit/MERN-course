@@ -29,6 +29,20 @@ export default function (state = inititalState, action) {
 				loading: false,
 			};
 
+		case actionTypes.ADD_COMMENT:
+			return {
+				...state,
+				post: { ...state.post, comments: payload.response },
+				loading: false,
+			};
+
+		case actionTypes.DELETE_COMMENT:
+			return {
+				...state,
+				loading: false,
+				post: { ...state.post, comments: payload.response },
+			};
+
 		case actionTypes.POST_ERROR:
 			return { ...state, error: payload, loading: false };
 

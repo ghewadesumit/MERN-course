@@ -95,10 +95,8 @@ router.post(
 				);
 				return res.json(profile);
 			} else {
-				console.log('not present');
 				profile = new Profile(profileFields);
 				await profile.save();
-				// console.log(profile);
 				res.json(profile);
 			}
 		} catch (err) {
